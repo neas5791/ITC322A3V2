@@ -351,7 +351,6 @@ public class Maze {
 	 * Displays the path results of a depth first search
 	 * @param start is the origin vertex
 	 */
-	@SuppressWarnings("unchecked")
 	public void DepthFirst(int start){
 		// holder array for visit results
 		boolean [] visited = new boolean[size()];
