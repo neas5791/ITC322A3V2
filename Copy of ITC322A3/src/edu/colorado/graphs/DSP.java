@@ -13,6 +13,10 @@ public class DSP extends Graph {
 	@SuppressWarnings("unused")
 	private int[] shortestPath;
 	
+	/**
+	 * DSP object constructor, creates new object using a previously implemented Graph object.
+	 * @param g is a previously implemented Graph object
+	 */
 	public DSP(Graph g) {
 		this.edges = g.edges;
 		this.labels = g.labels;
@@ -24,6 +28,11 @@ public class DSP extends Graph {
 
 	}
 	
+	/**
+	 * Implements Dijkstra algorithm logic to construct a shortest distance array between two vertices 
+	 * @param source is the start vertex
+	 * @param destination is the destination vertex
+	 */
 	public void buildSpanningTree(int source, int destination){
 		boolean [] visited = new boolean[n];
 		
@@ -82,9 +91,10 @@ public class DSP extends Graph {
 			// The thinking part of the implementation...
 			int min = Integer.MAX_VALUE;
 			for (int vertex : allowed){
-				if (distance[vertex] < min)
+				if (distance[vertex] < min){
 					min = distance[vertex];
 					nextNeighbor = vertex;
+				}
 			}
 			allowed.remove(nextNeighbor);
 			current = nextNeighbor;
@@ -112,14 +122,25 @@ public class DSP extends Graph {
 		return weight;
 	}
 
+	/**
+	 * compiles shortest path data into an array of vertices
+	 * @param source is the start vertex
+	 * @param destination is the destination vertex
+	 * @return an array of integers which represent the 
+	 * shortest vertex path between the source and destination vertices
+	 */
 	public int[] getShortestPath(int source, int destination) {
+		// Rebuilds data by running buildSpanningTree method
+		buildSpanningTree(source, destination);
+			
 		int i = destination;
 		int finall = 0;
 		int[] path = new int[n];
-	 
+		
 		path[finall] = destination;
 		finall++;
-
+		// iterates through the precede array
+		// the precede array contains the previous closest vertex
 		while (precede[i] != source) {
 		    i = precede[i];
 		    path[finall] = i;
@@ -127,7 +148,7 @@ public class DSP extends Graph {
 		}
 		
 		path[finall] = source;
-	 
+		
 		int[] result = new int[finall+1];
 		System.arraycopy(path, 0, result, 0, finall+1);
 		return result;
@@ -143,14 +164,16 @@ public class DSP extends Graph {
 			System.out.printf("\t\t( %4d\t-> %5d  ) with cost = %d\n", path[i], path[i-1], weight[path[i]][path[i-1]]);
 			cost += weight[path[i]][path[i-1]];
 		}
-		System.out.println("For the Total Cost = " + cost);
+		System.out.println("The total cost of this path = " + cost);
 	}
     
-    protected void printDistance(){
-		
+    /**
+     * method was used in development
+     */
+    @SuppressWarnings("unused")
+	private void printDistance(){
 		for (int i = 0; i < distance.length; i++)
 			if (distance[i] != Integer.MAX_VALUE)
 				System.out.printf("Vertex %4d is a distance %4d\n" , i , distance[i]);
 	}
-
 }

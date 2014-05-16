@@ -1,5 +1,4 @@
 import java.io.*;
-//import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -13,8 +12,8 @@ public class Maze {
 	private int col;
 	public Graph g;
 
-	Stack<Integer> depthFirst;// = new Stack<Integer>();
-	Stack<Integer> shortPath;// = new Stack<Integer>();
+	Stack<Integer> depthFirst;
+	Stack<Integer> shortPath;
 	
 	/**
 	 *  Constructor for the maze object. This object is developed from the details found in the maze "filename".  
@@ -180,7 +179,6 @@ public class Maze {
 		   e.printStackTrace();
 	   }
    }
-
 	
 	/**
 	 * Conducts a depth first search of the maze
@@ -351,7 +349,7 @@ public class Maze {
 	 * Displays the path results of a depth first search
 	 * @param start is the origin vertex
 	 */
-	public void DepthFirst(int start){
+	public void depthFirst(int start){
 		// holder array for visit results
 		boolean [] visited = new boolean[size()];
 		
@@ -388,5 +386,32 @@ public class Maze {
 		return newStack;
 	}
 
+	/**
+	 * Displays a vertex to vertex path along with count of steps in a path Stack
+	 * This method assumes that path weights are all equal to ONE
+	 * @param path is the integer stack containing solution path 
+	 */
+	public void displayPathDetails(Stack<Integer> path){
+		Object[] pathAr = path.toArray();
+		
+		System.out.println("\nThe shortest path followed is : \n");
+		int cost = 0;
+		for (int i = pathAr.length-1 ; i>0 ; i--){
+			System.out.printf("\t\t( %4d\t-> %5d  ) with cost = %d\n", pathAr[i], pathAr[i-1], 1);
+			cost ++;
+		}
+		System.out.println("The total cost of this path = " + cost);
+	}
 	
+	/**
+	 * Get path stack that represents a depth first solution  
+	 * @return Integer stack containing solution path 
+	 */
+	public Stack<Integer> getDepthFirst() { return depthFirst; }
+	
+	/**
+	 * Get path stack that represents a shortest path solution  based on Dijkstra Algorithm
+	 * @return Integer stack containing solution path 
+	 */
+	public Stack<Integer> getShortPath() { return shortPath; }
 }

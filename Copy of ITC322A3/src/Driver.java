@@ -28,12 +28,12 @@ public class Driver {
 							+ "\nSelect from the following menu by entering menu number at the prompt."
 							+ "\n1. Load Maze a file." // working
 							+ "\n2. Display Maze"  // working
-							+ "\n3. Find path using Depth-First-Search"
-							+ "\n4. Find shortest path using Dijkstra's Algorithm"
-							+ "\n5. "
+							+ "\n3. Find path using Depth-First-Search"  // working
+							+ "\n4. Find shortest path using Dijkstra's Algorithm"  // working
+							/*+ "\n5. "
 							+ "\n6. "
 							+ "\n7. "
-							+ "\n8. Quit."
+							+ "\n5. Quit."*/
 							+ "\nMake your selection: ");
 			menu = scanner.nextInt();
 
@@ -52,9 +52,12 @@ public class Driver {
 				break;
 			case 3:
 				if (m != null) {
-					m.DepthFirst(0);
+					m.depthFirst(0);
 					
 					System.out.println(m.toString());
+					suspend("Press enter to see the path results table....");
+					
+					m.displayPathDetails(m.getDepthFirst());
 					suspend("Press enter to continue....");
 				}
 				break;
@@ -62,6 +65,9 @@ public class Driver {
 				m.shortestPath(0, m.size() - 1);
 				
 				System.out.println(m.toString());
+				suspend("Press enter to see the path results table....");
+				
+				m.displayPathDetails(m.getShortPath());
 				suspend("Press enter to continue....");
 				break;
 			case 5:
@@ -82,14 +88,16 @@ public class Driver {
 		boolean quit = false;
 		int menu;
 		do{
-			System.out.println("\nLOAD MAZE FILE; \n"
+			System.out.println("\nLOAD MAZE FILE: \n"
 								+ "===============\n");
 				
 			System.out.print("\nSelect from the following menu by entering menu number at the prompt."
 							+ "\n1. Load \"maze01.mz\" file."
 							+ "\n2. Load \"maze02.mz\" file."
-							+ "\n3. Load \"maze03.mz\" file."
-							+ "\n4. back to main menu."
+							+ "\n3. Load \"maze22.mz\" file."
+							+ "\n4. Load \"maze03.mz\" file."
+							+ "\n5. Load \"maze33.mz\" file."
+							+ "\n6. back to main menu."
 							+ "\nMake your selection: ");
 			menu = scanner.nextInt();
 						
@@ -105,7 +113,17 @@ public class Driver {
 				quit = !quit;
 				break;
 			case 3:
+				name = "maze22.mz";
+				m = new Maze(name);
+				quit = !quit;
+				break;
+			case 4:
 				name = "maze03.mz";
+				m = new Maze(name);
+				quit = !quit;
+				break;
+			case 5:
+				name = "maze33.mz";
 				m = new Maze(name);
 				quit = !quit;
 				break;
@@ -114,9 +132,7 @@ public class Driver {
 				System.out.println("Back to main menu");
 				break;
 			}
-		}while (!quit);
-		
-		
+		}while (!quit);		
 	}
 	
 	/**
