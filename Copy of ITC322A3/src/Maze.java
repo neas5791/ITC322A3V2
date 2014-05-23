@@ -317,14 +317,14 @@ public class Maze {
 	 *   Indicates that the start or destination vertex is outside the scope of the graph
 	 */
 	public void shortestPath(int start, int destination){
-
-		if (start < 0 || start >= size())
+		int size = size();
+		if (start < 0 || start >= size)
 			throw new IllegalArgumentException("Start vertex does not exist");
-		if (destination < 0 || destination >= size())
+		if (destination < 0 || destination >= size)
 			throw new IllegalArgumentException("Destination vertex does not exist");
 		
 		DSP d = new DSP(g);
-		d.buildSpanningTree(start, size()-1);
+		d.buildSpanningTree(start, size-1);
 		
 		shortPath = new Stack<Integer>();
 		

@@ -12,6 +12,7 @@ public class DSP extends Graph {
 	private int[] precede;
 	@SuppressWarnings("unused")
 	private int[] shortestPath;
+	private boolean set;
 	
 	/**
 	 * DSP object constructor, creates new object using a previously implemented Graph object.
@@ -32,6 +33,7 @@ public class DSP extends Graph {
 	 * Implements Dijkstra algorithm logic to construct a shortest distance array between two vertices 
 	 * @param source is the start vertex
 	 * @param destination is the destination vertex
+	 * @postcondition the private int[] precede and distance contain data about current map
 	 */
 	public void buildSpanningTree(int source, int destination){
 		boolean [] visited = new boolean[n];
@@ -101,7 +103,9 @@ public class DSP extends Graph {
 		
 		}
 		
-		this.shortestPath = getShortestPath(source, destination);
+		// triggers private variable set to true to indicate int[] precede and distance have data
+		set = true;
+		shortestPath = getShortestPath(source, destination);
 	}
 	
 	private int [][] constructWeightArray(){
@@ -128,10 +132,13 @@ public class DSP extends Graph {
 	 * @param destination is the destination vertex
 	 * @return an array of integers which represent the 
 	 * shortest vertex path between the source and destination vertices
+	 * @precondition 
 	 */
 	public int[] getShortestPath(int source, int destination) {
-		// Rebuilds data by running buildSpanningTree method
-		buildSpanningTree(source, destination);
+		
+		// Rebuilds data by running buildSpanningTree method		
+		if (!set)
+			buildSpanningTree(source, destination);
 			
 		int i = destination;
 		int finall = 0;
